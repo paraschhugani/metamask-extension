@@ -173,3 +173,23 @@ export const UNSUPPORTED_RPC_METHODS = new Set([
 ]);
 
 export const IPFS_DEFAULT_GATEWAY_URL = 'dweb.link';
+
+export const BUYABLE_CHAIN_IDS_TO_CURRENCY_MAP = {
+  [MAINNET_CHAIN_ID]: ETH_SYMBOL,
+  [ROPSTEN_CHAIN_ID]: ETH_SYMBOL,
+  [RINKEBY_CHAIN_ID]: ETH_SYMBOL,
+  [GOERLI_CHAIN_ID]: ETH_SYMBOL,
+  [KOVAN_CHAIN_ID]: ETH_SYMBOL,
+  [BSC_CHAIN_ID]: BNB_SYMBOL,
+  [POLYGON_CHAIN_ID]: MATIC_SYMBOL,
+};
+
+export const BUYABLE_CHAIN_IDS_TO_NETWORK_NAME_MAP = {
+  [MAINNET_CHAIN_ID]: 'ethereum',
+  [ROPSTEN_CHAIN_ID]: 'ethereum',
+  [RINKEBY_CHAIN_ID]: 'ethereum',
+  [GOERLI_CHAIN_ID]: 'ethereum',
+  [KOVAN_CHAIN_ID]: 'ethereum',
+  [BSC_CHAIN_ID]: 'bsc',
+  [POLYGON_CHAIN_ID]: 'polygon',
+};

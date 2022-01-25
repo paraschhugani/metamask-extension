@@ -8,6 +8,8 @@ import {
   RINKEBY_CHAIN_ID,
   ROPSTEN_CHAIN_ID,
   MAINNET_NETWORK_ID,
+  BUYABLE_CHAIN_IDS_TO_NETWORK_NAME_MAP,
+  BUYABLE_CHAIN_IDS_TO_CURRENCY_MAP,
 } from '../../../shared/constants/network';
 import { SECOND } from '../../../shared/constants/time';
 import getFetchWithTimeout from '../../../shared/modules/fetch-with-timeout';
@@ -50,13 +52,18 @@ const createWyrePurchaseUrl = async (address) => {
  * @param {string} address - Ethereum destination address
  * @returns String
  */
-const createTransakUrl = (address) => {
+const createTransakUrl = (walletAddress, chainId) => {
+  const cryptoCurrencyCode = BUYABLE_CHAIN_IDS_TO_CURRENCY_MAP[chainId];
+  const networks = BUYABLE_CHAIN_IDS_TO_NETWORK_NAME_MAP[chainId];
+
   const queryParams = new URLSearchParams({
     apiKey: TRANSAK_API_KEY,
     hostURL: 'https://metamask.io',
-    defaultCryptoCurrency: 'ETH',
-    walletAddress: address,
+    cryptoCurrencyCode,
+    networks,
+    walletAddress,
   });
+
   return `https://global.transak.com/?${queryParams}`;
 };
 
@@ -81,7 +88,7 @@ export default async function getBuyEthUrl({ chainId, address, service }) {
     case 'wyre':
       return await createWyrePurchaseUrl(address);
     case 'transak':
-      return createTransakUrl(address);
+      return createTransakUrl(address, chainId);
     case 'metamask-faucet':
       return 'https://faucet.metamask.io/';
     case 'rinkeby-faucet':
